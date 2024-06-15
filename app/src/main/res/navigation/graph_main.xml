@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress NavigationFile -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/signInFragment">
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.salehub.screens.sign_up.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_tabsFragment"
+            app:destination="@id/tabsFragment"
+            app:popUpTo="@id/signInFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.salehub.screens.sign_in.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_tabsFragment"
+            app:destination="@id/tabsFragment"
+            app:popUpTo="@id/signInFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/tabsFragment"
+        android:name="com.example.salehub.TabsFragment"
+        tools:layout="@layout/fragment_tabs" >
+        <action
+            android:id="@+id/action_tabsFragment_to_signInFragment"
+            app:destination="@id/signInFragment"
+            app:popUpTo="@id/tabsFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_tabsFragment_to_editAccountFragment"
+            app:destination="@id/editAccountFragment" />
+        <action
+            android:id="@+id/action_tabsFragment_to_postDetailsFragment"
+            app:destination="@id/postDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editAccountFragment"
+        android:name="com.example.salehub.screens.edit_account.EditAccountFragment"
+        android:label="Редактирование профиля"
+        tools:layout="@layout/fragment_edit_account" >
+        <argument
+            android:name="account"
+            app:argType="com.example.salehub.model.account.Account"
+            app:nullable="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/postDetailsFragment"
+        android:name="com.example.salehub.screens.post_details.PostDetailsFragment"
+        android:label="Информация о скидке"
+        tools:layout="@layout/fragment_post_details" >
+        <argument
+            android:name="postItem"
+            app:argType="com.example.salehub.model.posts.PostItem"
+            app:nullable="true" />
+    </fragment>
+</navigation>

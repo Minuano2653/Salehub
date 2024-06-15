@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">SaleHub</string>
+    <string name="sign_up_button_text">Зарегистрироваться</string>
+    <string name="sign_in_button_text">Войти</string>
+    <string name="save_changes_button_text">Сохранить изменения</string>
+    <string name="nickname_text">Никнейм</string>
+    <string name="posts_not_found_text">Публикации не найдены</string>
+    <string name="old_password_edit_text">Старый пароль</string>
+    <string name="new_password_edit_text">Новый пароль</string>
+    <string name="password_sign_up_edit_text">Пароль</string>
+    <string name="repeat_password_edit_text">Повторите пароль</string>
+    <string name="save_button_text">Сохранить</string>
+    <string name="email_edit_text">Электронная почта</string>
+    <string name="publish_button_text">Опубликовать</string>
+    <string name="registration_date_text">Дата регистрации: %1$s</string>
+    <string name="new_nickname_edit_text">Новый никнейм</string>
+    <string name="post_author_text_view">Автор: %1$s</string>
+    <string name="old_cost_text_view">Старая цена: %1$s ₽</string>
+    <string name="new_cost_text_view">Новая цена: %1$s ₽</string>
+
+    <string-array name="categories">
+        <item>Автомобили</item>
+        <item>Дом</item>
+        <item>Здоровье и красота</item>
+        <item>Культура и отдых</item>
+        <item>Одежда</item>
+        <item>Продукты и бытовая химия</item>
+        <item>Услуги и подписки</item>
+        <item>Электроника</item>
+    </string-array>
+</resources>

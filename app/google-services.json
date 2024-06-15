@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "684805536988",
+    "project_id": "salehub-25355",
+    "storage_bucket": "salehub-25355.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:684805536988:android:557363c079e231beda4819",
+        "android_client_info": {
+          "package_name": "com.example.salehub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcTXe5s0o8DauHOlZHrh2-_-YipwuJfnY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

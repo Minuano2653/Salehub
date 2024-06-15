@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@android:color/transparent" /> <!-- Задний фон View -->
+    <stroke android:width="1dp" android:color="@color/background_dark_gray" /> <!-- Цвет и толщина линии -->
+    <corners android:radius="5dp" /> <!-- Радиус закругления углов -->
+</shape>

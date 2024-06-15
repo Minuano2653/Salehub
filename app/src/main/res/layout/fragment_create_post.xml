@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.salehub.screens.create_post.CreatePostFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        >
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/viewPagerCardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="#f4E1E1"
+            app:cardCornerRadius="16dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <LinearLayout
+                android:id="@+id/pickPhotosContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/addPhotoImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="50dp"
+                    android:paddingStart="50dp"
+                    android:paddingEnd="50dp"
+                    android:src="@drawable/ic_add_photo_48dp" />
+
+                <TextView
+                    android:id="@+id/addPhotoTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:paddingBottom="50dp"
+                    android:text="Выбрать фотографии" />
+
+            </LinearLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/imageViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
+
+        </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/postNameEditTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/viewPagerCardView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/postNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            android:hint="Название публикации"
+            android:maxLines="1"
+            android:inputType="textCapSentences"
+             />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/linkEditTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/descriptionEditTextLayout"
+        app:layout_constraintStart_toStartOf="@id/descriptionEditTextLayout"
+        app:layout_constraintEnd_toEndOf="@id/descriptionEditTextLayout"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/linkEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:fontFamily="@font/montserrat_medium"
+            android:hint="Ссылка (необязательно)"
+            android:inputType="textUri" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addressEditTextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/linkEditTextLayout"
+            app:layout_constraintStart_toStartOf="@id/linkEditTextLayout"
+            app:layout_constraintEnd_toEndOf="@id/linkEditTextLayout"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addressEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:fontFamily="@font/montserrat_medium"
+                android:hint="Адрес (необязательно)"
+                android:inputType="textCapSentences" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/categoryTextView"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/category_text_view_background"
+            android:fontFamily="@font/montserrat_medium"
+            android:gravity="center_vertical"
+            android:paddingStart="16dp"
+            android:text="Категория"
+            android:textSize="16sp"
+            android:foreground="?attr/selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="@id/addressEditTextLayout"
+            app:layout_constraintStart_toStartOf="@id/addressEditTextLayout"
+            app:layout_constraintTop_toBottomOf="@id/addressEditTextLayout" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/oldCostEditTextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/postNameEditTextLayout"
+            app:layout_constraintStart_toStartOf="@id/postNameEditTextLayout"
+            app:layout_constraintEnd_toEndOf="@id/postNameEditTextLayout" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/oldCostEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:hint="Старая цена"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/newCostEditTextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/oldCostEditTextLayout"
+            app:layout_constraintStart_toStartOf="@id/oldCostEditTextLayout"
+            app:layout_constraintEnd_toEndOf="@id/oldCostEditTextLayout" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/newCostEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:hint="Новая цена"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/descriptionEditTextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/newCostEditTextLayout"
+            app:layout_constraintStart_toStartOf="@id/newCostEditTextLayout"
+            app:layout_constraintEnd_toEndOf="@id/newCostEditTextLayout" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/descriptionEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="10"
+                android:gravity="top"
+                android:fontFamily="@font/montserrat_medium"
+                android:hint="Описание"
+                android:inputType="textCapSentences|textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/publishButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/publish_button_text"
+            android:enabled="true"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintStart_toStartOf="@id/addressEditTextLayout"
+            app:layout_constraintEnd_toEndOf="@id/addressEditTextLayout"
+            app:layout_constraintTop_toBottomOf="@id/categoryTextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <ProgressBar
+            android:id="@+id/publishProgressBar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="6dp"
+            app:layout_constraintStart_toStartOf="@id/publishButton"
+            app:layout_constraintEnd_toEndOf="@id/publishButton"
+            app:layout_constraintTop_toTopOf="@id/publishButton"
+            app:layout_constraintBottom_toBottomOf="@id/publishButton"
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/white"
+            android:visibility="gone"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+
+

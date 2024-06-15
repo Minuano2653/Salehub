@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.salehub.screens.post_details.PostDetailsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/postDetailsToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ToolbarTheme"
+                app:titleTextColor="@color/white" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/viewPagerCardView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            app:cardBackgroundColor="#f4E1E1"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintTop_toBottomOf="@id/app_bar_main">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/imageViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/postNameTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@id/viewPagerCardView"
+            app:layout_constraintStart_toStartOf="@id/viewPagerCardView"
+            app:layout_constraintTop_toBottomOf="@id/viewPagerCardView"
+            tools:text="MSI Gaming Laptop Thin GF63 12VE-029" />
+
+        <LinearLayout
+            android:id="@+id/costsContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="@id/postNameTextView"
+            app:layout_constraintTop_toBottomOf="@id/postNameTextView">
+
+            <TextView
+                android:id="@+id/oldCostTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:textSize="16sp"
+                tools:text="Старая цена: 60000 ₽" />
+
+            <TextView
+                android:id="@+id/newCostTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:textColor="@color/orange"
+                android:textSize="16sp"
+                tools:text="Новая цена: 40000 ₽" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/publicationDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            app:layout_constraintEnd_toEndOf="@+id/postNameTextView"
+            app:layout_constraintTop_toBottomOf="@+id/postNameTextView"
+            tools:text="12.06.2024" />
+
+        <LinearLayout
+            android:id="@+id/evaluateContainer"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:background="@drawable/evaluate_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/costsContainer"
+            app:layout_constraintEnd_toEndOf="@+id/publicationDateTextView">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_minus_24dp" />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="center"
+                tools:text="1234" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_plus_24dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/postAuthorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/post_author_text_view"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:textSize="20sp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            tools:text="Автор: Minuano"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/costsContainer"
+            app:layout_constraintStart_toStartOf="@id/costsContainer" />
+
+        <TextView
+            android:id="@+id/descriptionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:text="Описание"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/postAuthorTextView"
+            app:layout_constraintTop_toBottomOf="@id/postAuthorTextView"
+            />
+
+        <TextView
+            android:id="@+id/postDescriptionTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/post_details_elements_background"
+            android:backgroundTint="#f4E1E1"
+            android:fontFamily="@font/montserrat_medium"
+            android:padding="6dp"
+            app:layout_constraintEnd_toEndOf="@id/postNameTextView"
+            app:layout_constraintStart_toStartOf="@id/descriptionTitle"
+            app:layout_constraintTop_toBottomOf="@id/descriptionTitle"
+            tools:text="Самый крутой ноутбук. Два гига, два ядра, игровая видеокарта, мощный процессор. И для учёбы и для КСочки хватит." />
+
+        <TextView
+            android:id="@+id/linkTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:text="Сссылка"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/postDescriptionTextView"
+            app:layout_constraintTop_toBottomOf="@id/postDescriptionTextView" />
+
+        <TextView
+            android:id="@+id/linkTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:background="@drawable/post_details_elements_background"
+            android:backgroundTint="#f4E1E1"
+            android:padding="6dp"
+            app:layout_constraintEnd_toEndOf="@id/postDescriptionTextView"
+            app:layout_constraintStart_toStartOf="@id/linkTitle"
+            app:layout_constraintTop_toBottomOf="@id/linkTitle"
+            tools:text="https://chatgpt.com/c/4a92e765-1a49-428e-8354-fc064cd596f5" />
+
+        <TextView
+            android:id="@+id/addressTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:text="Адресс"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/linkTextView"
+            app:layout_constraintTop_toBottomOf="@id/linkTextView" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:autoLink="map"
+            android:background="@drawable/post_details_elements_background"
+            android:backgroundTint="#f4E1E1"
+            android:padding="6dp"
+            app:layout_constraintEnd_toEndOf="@id/linkTextView"
+            app:layout_constraintStart_toStartOf="@id/addressTitle"
+            app:layout_constraintTop_toBottomOf="@id/addressTitle"
+            tools:text="Москва, Удальцова, 8" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
