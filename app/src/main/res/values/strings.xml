@@ -28,4 +28,16 @@
         <item>Услуги и подписки</item>
         <item>Электроника</item>
     </string-array>
+
+    <string-array name="all_categories">
+        <item>Все</item>
+        <item>Автомобили</item>
+        <item>Дом</item>
+        <item>Здоровье и красота</item>
+        <item>Культура и отдых</item>
+        <item>Одежда</item>
+        <item>Продукты и бытовая химия</item>
+        <item>Услуги и подписки</item>
+        <item>Электроника</item>
+    </string-array>
 </resources>

@@ -62,8 +62,6 @@ class PostsAdapter(private val listener: OnPostClickListener) : RecyclerView.Ada
             newCostTextView.text = context.getString(R.string.new_cost_text_view, postItem.newCost)
             authorTextView.text = postItem.author
 
-            Log.d("RRRR", postItem.rating.toString())
-
             val cardBackgroundColor = when {
                 postItem.rating > 0 -> ContextCompat.getColor(context, R.color.pastel_orange)
                 postItem.rating < 0 -> ContextCompat.getColor(context, R.color.pastel_blue)

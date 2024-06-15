@@ -89,6 +89,12 @@ class FirebasePostsRepository : BaseRepository() {
     private suspend fun fetchAllPosts() : List<PostItem>? {
         val dateFormat = SimpleDateFormat("dd.MM.yy", Locale.getDefault())
 
+        val userUid = auth.currentUser!!.uid
+        val userDocument = db.collection("users").document(userUid).get().await()
+
+        val nickname = userDocument.getString("nickname") ?: ""
+        val avatarUrl = userDocument.getString("avatarUrl") ?: ""
+
         return try {
             val snapshots = db.collection("posts")
                 .get()
@@ -96,7 +102,7 @@ class FirebasePostsRepository : BaseRepository() {
 
             val posts = snapshots.documents.mapNotNull { document ->
                 val post = document.toObject(PostItem::class.java)
-                post?.copy(id = document.id)
+                post?.copy(id = document.id, author = nickname, authorAvatar = avatarUrl)
             }
 
             // Сортировка постов по дате
@@ -118,9 +124,15 @@ class FirebasePostsRepository : BaseRepository() {
                 .get()
                 .await()
 
+            val userUid = auth.currentUser!!.uid
+            val userDocument = db.collection("users").document(userUid).get().await()
+
+            val nickname = userDocument.getString("nickname") ?: ""
+            val avatarUrl = userDocument.getString("avatarUrl") ?: ""
+
             val posts = snapshots.documents.mapNotNull { document ->
                 val post = document.toObject(PostItem::class.java)
-                post?.copy(id = document.id)
+                post?.copy(id = document.id, author = nickname, authorAvatar = avatarUrl)
             }
 
             // Сортировка постов по рейтингу в порядке убывания

@@ -10,7 +10,7 @@ class ImagePagerAdapter(fragment: Fragment, private val uris: List<Uri>) : Fragm
     override fun getItemCount(): Int = uris.size
 
     override fun createFragment(position: Int): Fragment {
-        Log.d("RRRR", "createFragment")
+        Log.d("AAAA", "create image fragment")
         return ImageFragment.newInstance(uris[position])
     }
 }

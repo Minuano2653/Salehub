@@ -29,24 +29,12 @@ class ImageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val uri = arguments?.getParcelable<Uri>(ARG_IMAGE_URI)
-        binding.imageView.setImageURI(uri)
+        Glide
+            .with(this)
+            .load(uri)
+            .into(binding.imageView)
+        //binding.imageView.setImageURI(uri)
     }
-
-    /*override fun onStart() {
-        super.onStart()
-        Log.d("RRRR", "start")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("RRRR", "stop")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("RRRR", "pause")
-
-    }*/
 
     companion object {
         private const val ARG_IMAGE_URI = "IMAGE_URI"
