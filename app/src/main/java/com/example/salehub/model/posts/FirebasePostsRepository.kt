@@ -5,8 +5,12 @@ import com.example.salehub.model.BaseRepository
 import com.example.salehub.model.create_post.Post
 import com.example.salehub.screens.account.OperationState
 import com.example.salehub.screens.posts.PostsFragment
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.database
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Query
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -89,18 +93,16 @@ class FirebasePostsRepository : BaseRepository() {
     private suspend fun fetchAllPosts() : List<PostItem>? {
         val dateFormat = SimpleDateFormat("dd.MM.yy", Locale.getDefault())
 
-        val userUid = auth.currentUser!!.uid
-        val userDocument = db.collection("users").document(userUid).get().await()
-
-        val nickname = userDocument.getString("nickname") ?: ""
-        val avatarUrl = userDocument.getString("avatarUrl") ?: ""
-
         return try {
             val snapshots = db.collection("posts")
                 .get()
                 .await()
 
             val posts = snapshots.documents.mapNotNull { document ->
+                val author = document.get("author") as String
+                val authorSnapshot = db.collection("users").document(author).get().await()
+                val nickname = authorSnapshot.getString("nickname") ?: ""
+                val avatarUrl = authorSnapshot.getString("avatarUrl") ?: ""
                 val post = document.toObject(PostItem::class.java)
                 post?.copy(id = document.id, author = nickname, authorAvatar = avatarUrl)
             }
@@ -124,13 +126,11 @@ class FirebasePostsRepository : BaseRepository() {
                 .get()
                 .await()
 
-            val userUid = auth.currentUser!!.uid
-            val userDocument = db.collection("users").document(userUid).get().await()
-
-            val nickname = userDocument.getString("nickname") ?: ""
-            val avatarUrl = userDocument.getString("avatarUrl") ?: ""
-
             val posts = snapshots.documents.mapNotNull { document ->
+                val author = document.get("author") as String
+                val authorSnapshot = db.collection("users").document(author).get().await()
+                val nickname = authorSnapshot.getString("nickname") ?: ""
+                val avatarUrl = authorSnapshot.getString("avatarUrl") ?: ""
                 val post = document.toObject(PostItem::class.java)
                 post?.copy(id = document.id, author = nickname, authorAvatar = avatarUrl)
             }
@@ -231,6 +231,29 @@ class FirebasePostsRepository : BaseRepository() {
             Log.e("decrementPost", "Error decrementing post", e)
             Result.failure(e)
         }
+    }
+
+    suspend fun addComment(postId: String, comment: Comment): Result<OperationState> {
+        return try {
+            val userUid = auth.currentUser!!.uid
+            val userDocument = db.collection("users").document(userUid).get().await()
+            val nickname = userDocument.getString("nickname") ?: ""
+
+            val commentsRef = database.getReference("comments").child(postId)
+            val newCommentRef = commentsRef.push()
+            Log.d("AAAA", newCommentRef.key.toString())
+            comment.id = newCommentRef.key ?: ""
+            comment.userId = userUid
+            comment.userName = nickname
+            newCommentRef.setValue(comment).await()
+            Result.success(OperationState.SUCCESS)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    fun getComments(postId: String): DatabaseReference {
+        return database.getReference("comments").child(postId)
     }
 
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.salehub.model.posts.Comment
 import com.example.salehub.model.posts.FirebasePostsRepository
 import com.example.salehub.model.posts.PostItem
 import com.example.salehub.screens.account.OperationState

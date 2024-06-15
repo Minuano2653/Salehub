@@ -20,9 +20,11 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.salehub.R
 import com.example.salehub.Repositories
 import com.example.salehub.databinding.FragmentPostDetailsBinding
+import com.example.salehub.model.posts.Comment
 import com.example.salehub.screens.account.OperationState
 import com.example.salehub.screens.create_post.ImagePagerAdapter
 import com.example.salehub.screens.posts.PostsViewModel
@@ -31,6 +33,7 @@ class PostDetailsFragment : Fragment() {
     private lateinit var binding: FragmentPostDetailsBinding
     private val viewModel = PostDetailsViewModel(Repositories.postsRepository)
     private lateinit var imagePagerAdapter: ImagePagerAdapter
+    private lateinit var commentsAdapter: CommentsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,8 +72,11 @@ class PostDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
-        setupImagePagerAdapter()
 
+        setupImagePagerAdapter()
+        setupCommentsAdapter()
+
+        observeComments()
         observePost()
         observeIncrementPostState()
         observeDecrementPostState()
@@ -84,35 +90,56 @@ class PostDetailsFragment : Fragment() {
             viewModel.decrementPost()
         }
 
-        binding.addressTextView.setOnClickListener {
-            val address = binding.addressTextView.text.toString()
-            val clipboardManager = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clipData = ClipData.newPlainText("Address", address)
-            clipboardManager.setPrimaryClip(clipData)
-
-            val packageNames = listOf(
-                "com.google.android.apps.maps",  // Google Maps
-                "ru.yandex.yandexmaps"  // yandex maps
-            )
-
-            val intents = mutableListOf<Intent>()
-            for (packageName in packageNames) {
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse("geo:0,0?q=$address")
-                intent.setPackage(packageName)
-                intents.add(intent)
-            }
-
-            val chooserIntent = Intent.createChooser(intents.removeAt(0), "Выберите приложение для открытия карт")
-            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toTypedArray())
-
-            if (chooserIntent.resolveActivity(requireContext().packageManager) != null) {
-                startActivity(chooserIntent)
-            } else {
-                Toast.makeText(requireContext(), "Ни одно приложение для карт не установлено", Toast.LENGTH_SHORT).show()
+        binding.sendCommentButton.setOnClickListener {
+            val commentText = binding.commentEditText.text.toString()
+            if (commentText.isNotBlank()) {
+                val comment = Comment(
+                    id = "",
+                    postId = viewModel.post.value?.id ?: "",
+                    userId = "",
+                    userName = "",
+                    content = commentText
+                )
+                viewModel.addComment(comment)
+                binding.commentEditText.text.clear()
             }
         }
 
+        viewModel.fetchComments()
+
+        binding.addressTextView.setOnClickListener {
+            tryToOpenMap()
+        }
+
+    }
+
+    private fun tryToOpenMap() {
+        val address = binding.addressTextView.text.toString()
+        val clipboardManager = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText("Address", address)
+        clipboardManager.setPrimaryClip(clipData)
+
+        val packageNames = listOf(
+            "com.google.android.apps.maps",  // Google Maps
+            "ru.yandex.yandexmaps"  // yandex maps
+        )
+
+        val intents = mutableListOf<Intent>()
+        for (packageName in packageNames) {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("geo:0,0?q=$address")
+            intent.setPackage(packageName)
+            intents.add(intent)
+        }
+
+        val chooserIntent = Intent.createChooser(intents.removeAt(0), "Выберите приложение для открытия карт")
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toTypedArray())
+
+        if (chooserIntent.resolveActivity(requireContext().packageManager) != null) {
+            startActivity(chooserIntent)
+        } else {
+            Toast.makeText(requireContext(), "Ни одно приложение для карт не установлено", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupImagePagerAdapter() {
@@ -203,6 +230,18 @@ class PostDetailsFragment : Fragment() {
 
         binding.postDetailsToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
+        }
+    }
+
+    private fun setupCommentsAdapter() {
+        commentsAdapter = CommentsAdapter()
+        binding.commentsRecyclerView.adapter = commentsAdapter
+        binding.commentsRecyclerView.layoutManager = LinearLayoutManager(context)
+    }
+
+    private fun observeComments() {
+        viewModel.comments.observe(viewLifecycleOwner) { comments ->
+            commentsAdapter.updateComments(comments)
         }
     }
 }

@@ -1,12 +1,17 @@
 package com.example.salehub.screens.post_details
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.salehub.model.posts.Comment
 import com.example.salehub.model.posts.FirebasePostsRepository
 import com.example.salehub.model.posts.PostItem
 import com.example.salehub.screens.account.OperationState
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.launch
 
 class PostDetailsViewModel(private val postsRepository: FirebasePostsRepository) : ViewModel() {
@@ -25,6 +30,10 @@ class PostDetailsViewModel(private val postsRepository: FirebasePostsRepository)
     private val _addToFavouriteState = MutableLiveData<OperationState>()
     val addToFavouriteState: LiveData<OperationState>
         get() = _addToFavouriteState
+
+    private val _comments = MutableLiveData<List<Comment>>()
+    val comments: LiveData<List<Comment>>
+        get() = _comments
 
     fun setPost(postItem: PostItem) {
         _post.value = postItem
@@ -75,5 +84,33 @@ class PostDetailsViewModel(private val postsRepository: FirebasePostsRepository)
             }
         }
         return _decrementPostState.value == OperationState.SUCCESS
+    }
+
+    fun addComment(comment: Comment) {
+        Log.d("AAAA", comment.toString())
+        viewModelScope.launch {
+            val result = postsRepository.addComment(_post.value?.id ?: "", comment)
+            if (result.isSuccess) {
+                fetchComments()
+            }
+        }
+    }
+
+    fun fetchComments() {
+        val postId = _post.value?.id ?: return
+        postsRepository.getComments(postId).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val commentsList = mutableListOf<Comment>()
+                for (dataSnapshot in snapshot.children) {
+                    val comment = dataSnapshot.getValue(Comment::class.java)
+                    comment?.let { commentsList.add(it) }
+                }
+                _comments.value = commentsList
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle error
+            }
+        })
     }
 }

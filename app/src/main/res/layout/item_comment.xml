@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/userNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="User Name" />
+
+    <TextView
+        android:id="@+id/commentContentTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="@id/userNameTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userNameTextView"
+        tools:text="This is a comment content." />
+
+    <TextView
+        android:id="@+id/timestampTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:textSize="12sp"
+        android:textColor="@color/background_dark_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/userNameTextView"
+        tools:text="12.06.2024 14:30" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
